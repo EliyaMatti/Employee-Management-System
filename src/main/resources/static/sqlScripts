@@ -1,0 +1,67 @@
+CREATE TABLE employee_management.departments (
+    id BIGINT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL UNIQUE,
+    description VARCHAR(255)
+);
+CREATE TABLE employee_management.employees (
+    employee_code BIGINT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    phone VARCHAR(15) NOT NULL,
+    department_id BIGINT NOT NULL,
+    designation VARCHAR(100),
+    salary DECIMAL(10, 2),
+    joining_date DATE,
+    is_active BOOLEAN DEFAULT TRUE,
+    FOREIGN KEY (department_id) REFERENCES departments(id) ON DELETE CASCADE
+);
+CREATE TABLE employee_management.attendance (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    employee_code BIGINT NOT NULL,
+    attendance_date DATE NOT NULL,
+    clock_in DATETIME,
+    clock_out DATETIME,
+    total_hours DECIMAL(5, 2),
+    UNIQUE (employee_code, attendance_date),
+    FOREIGN KEY (employee_code) REFERENCES employees(employee_code) ON DELETE CASCADE
+);
+CREATE TABLE employee_management.leave_requests (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    employee_code BIGINT NOT NULL,
+    leave_type VARCHAR(50),
+    start_date DATE,
+    end_date DATE,
+    status VARCHAR(20) DEFAULT 'PENDING',
+    reason TEXT,
+    FOREIGN KEY (employee_code) REFERENCES employees(employee_code) ON DELETE CASCADE
+);
+CREATE TABLE employee_management.payroll (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    employee_code BIGINT NOT NULL,
+    month VARCHAR(7) NOT NULL, -- e.g., '2024-04'
+    base_salary DECIMAL(10, 2),
+    deductions DECIMAL(10, 2),
+    bonuses DECIMAL(10, 2),
+    net_salary DECIMAL(10, 2),
+    generated_date DATE,
+    UNIQUE (employee_code, month),
+    FOREIGN KEY (employee_code) REFERENCES employees(employee_code) ON DELETE CASCADE
+);
+CREATE TABLE employee_management.users (
+    username VARCHAR(50) PRIMARY KEY,
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR(50),
+    employee_code BIGINT,
+    FOREIGN KEY (employee_code) REFERENCES employees(employee_code) ON DELETE SET NULL
+);
+commit;
+
+
+INSERT INTO employee_management.departments (id, name, description) VALUES 
+(101, 'HR', 'Human Resources Department'),
+(102, 'Engineering', 'Software Development & IT'),
+(103, 'Finance', 'Financial Planning & Accounting'),
+(104, 'Marketing', 'Marketing & Sales'),
+(105, 'Operations', 'Business Operations & Logistics'),
+(106, 'Customer Support', 'Customer Service & Help Desk');
+commit;
