@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.EmployeeManagementSystem.EMS.Expection.AlreadyCheckedInException;
 import com.EmployeeManagementSystem.EMS.Expection.NoDataFoundException;
 import com.EmployeeManagementSystem.EMS.dto.ExceptionDto;
 
@@ -25,11 +26,11 @@ public class ControllerAdvices {
         return new ResponseEntity<>(exceptionDto, HttpStatus.NOT_FOUND);
     }
 
-//    @ExceptionHandler(InvalidDataException.class)
-//    ResponseEntity<ExceptionDto> handleInvalidException(InvalidDataException ex){
-//        ExceptionDto exceptionDto = new ExceptionDto(HttpStatus.BAD_REQUEST, ex.getMessage());
-//        return new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
-//    }
+    @ExceptionHandler(AlreadyCheckedInException.class)
+    ResponseEntity<ExceptionDto> handleInvalidException(AlreadyCheckedInException ex){
+        ExceptionDto exceptionDto = new ExceptionDto(HttpStatus.CONFLICT, ex.getMessage());
+        return new ResponseEntity<>(exceptionDto, HttpStatus.CONFLICT);
+    }
 //
 //    @ExceptionHandler(InsufficientStockException.class)
 //    ResponseEntity<ExceptionDto> handleInsufficientException(InsufficientStockException ex){
