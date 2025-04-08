@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +29,8 @@ public class AttendenceServiceImpl implements AttendenceService {
 	EmployeeRepository employeeRepository;
 	@Autowired
 	AttendanceRepository attendanceRepository;
+	@Autowired
+	ModelMapper modelMapper;
 
 	@Transactional
 	@Override
@@ -39,7 +42,6 @@ public class AttendenceServiceImpl implements AttendenceService {
 		boolean exists = attendanceRepository.existsByEmployeeAndAttendanceDate(employee, today);
 		if (exists)
 			throw new AlreadyCheckedInException("Already attadance marked");
-
 		attendance.setAttendanceDate(today);
 		attendance.setEmployee(employee);
 		LocalDateTime localDateTime = LocalDateTime.now();
@@ -58,7 +60,7 @@ public class AttendenceServiceImpl implements AttendenceService {
 				.orElseThrow(() -> new NoDataFoundException("No attendencae record found for employee  : " + employeeCode));
 		LocalDateTime CheckOuttime = LocalDateTime.now();
 		attendance.setClockOut(CheckOuttime);
-		Duration duration = Duration.between(CheckOuttime ,attendance.getClockIn());
+		Duration duration = Duration.between(attendance.getClockIn(),CheckOuttime);
 //		double  totalHours= CheckOuttime. - attendance.getClockIn();
 		BigDecimal hours = BigDecimal.valueOf(duration.toHours());
 		attendance.setTotalHours(hours);
@@ -70,9 +72,10 @@ public class AttendenceServiceImpl implements AttendenceService {
 		Employee employee = employeeRepository.findById(employeeCode)
 				.orElseThrow(() -> new NoDataFoundException("No Employee Found with id : " + employeeCode));
 		List<Attendance> attendecelist = attendanceRepository.findAllByEmployee(employee);
-//		List<AttendanceDTO> list = new ArrayList<>();
 		List<AttendanceDTO> list = attendecelist.stream()
 			    .map(att -> new AttendanceDTO(
+			    	
+			    	att.getId(),
 			        att.getEmployee().getEmployeeCode(),
 			        att.getAttendanceDate(),
 			        att.getClockIn(),
@@ -81,7 +84,5 @@ public class AttendenceServiceImpl implements AttendenceService {
 			    ))
 			    .collect(Collectors.toList());
 		return list;
-		
 	}
-
 }

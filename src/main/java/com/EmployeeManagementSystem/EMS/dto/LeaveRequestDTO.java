@@ -3,6 +3,7 @@ package com.EmployeeManagementSystem.EMS.dto;
 import java.time.LocalDate;
 
 import com.EmployeeManagementSystem.EMS.Entity.LeaveType;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
 
@@ -10,8 +11,9 @@ import lombok.Data;
 public class LeaveRequestDTO {
     private Long id;
     private Long employeeId;
+    @JsonProperty("leaveType")
     private LeaveType leaveType;
     private LocalDate startDate;
     private LocalDate endDate;
-    private Boolean isApproved;
+    private String reason;
 }

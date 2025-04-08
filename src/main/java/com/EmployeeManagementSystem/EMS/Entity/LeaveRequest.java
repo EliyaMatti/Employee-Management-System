@@ -36,4 +36,6 @@ public class LeaveRequest {
     private String status; // PENDING, APPROVED, REJECTED
 
     private String reason;
+    
+    private int leave_balance;
 }
