@@ -2,7 +2,6 @@ package com.EmployeeManagementSystem.EMS.controller;
 
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,8 +23,12 @@ import jakarta.validation.Valid;
 @RequestMapping("/ems/employee")
 public class EmployeeController {
 
-	@Autowired
-	EmployeeService employeeService;
+	
+	private EmployeeService employeeService;
+
+	public EmployeeController(EmployeeService employeeService) {
+		this.employeeService = employeeService;
+	}
 
 	@PostMapping("/add")
 	public ResponseEntity<?> createEmployee(@RequestBody @Valid EmployeeDTO employeeDTO) throws NoDataFoundException {

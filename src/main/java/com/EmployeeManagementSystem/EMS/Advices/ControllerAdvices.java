@@ -6,7 +6,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.EmployeeManagementSystem.EMS.Expection.AlreadyActionTakenException;
 import com.EmployeeManagementSystem.EMS.Expection.AlreadyCheckedInException;
+import com.EmployeeManagementSystem.EMS.Expection.InsufficientLeaveException;
 import com.EmployeeManagementSystem.EMS.Expection.NoDataFoundException;
 import com.EmployeeManagementSystem.EMS.dto.ExceptionDto;
 
@@ -31,18 +33,18 @@ public class ControllerAdvices {
         ExceptionDto exceptionDto = new ExceptionDto(HttpStatus.CONFLICT, ex.getMessage());
         return new ResponseEntity<>(exceptionDto, HttpStatus.CONFLICT);
     }
-//
-//    @ExceptionHandler(InsufficientStockException.class)
-//    ResponseEntity<ExceptionDto> handleInsufficientException(InsufficientStockException ex){
-//        ExceptionDto exceptionDto = new ExceptionDto(HttpStatus.BAD_REQUEST, ex.getMessage());
-//        return new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
-//    }
 
-//    @ExceptionHandler(ResourceAccessForbidden.class)
-//    ResponseEntity<ExceptionDto> handleForbiddenException(ResourceAccessForbidden ex){
-//        ExceptionDto exceptionDto = new ExceptionDto(HttpStatus.FORBIDDEN, ex.getMessage());
-//        return new ResponseEntity<>(exceptionDto, HttpStatus.FORBIDDEN);
-//    }
+    @ExceptionHandler(InsufficientLeaveException.class)
+    ResponseEntity<ExceptionDto> handleInsufficientException(InsufficientLeaveException ex){
+        ExceptionDto exceptionDto = new ExceptionDto(HttpStatus.BAD_REQUEST, ex.getMessage());
+        return new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(AlreadyActionTakenException.class)
+    ResponseEntity<ExceptionDto> handleForbiddenException(AlreadyActionTakenException ex){
+        ExceptionDto exceptionDto = new ExceptionDto(HttpStatus.FORBIDDEN, ex.getMessage());
+        return new ResponseEntity<>(exceptionDto, HttpStatus.FORBIDDEN);
+    }
 //
 //    @ExceptionHandler(PaymentClientException.class)
 //    ResponseEntity<ExceptionDto> handlePaymentClientException(PaymentClientException ex){

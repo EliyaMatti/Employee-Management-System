@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.EmployeeManagementSystem.EMS.Entity.Attendance;
@@ -25,12 +24,16 @@ import jakarta.transaction.Transactional;
 @Service
 public class AttendenceServiceImpl implements AttendenceService {
 
-	@Autowired
 	EmployeeRepository employeeRepository;
-	@Autowired
 	AttendanceRepository attendanceRepository;
-	@Autowired
 	ModelMapper modelMapper;
+
+	public AttendenceServiceImpl(EmployeeRepository employeeRepository, AttendanceRepository attendanceRepository,
+			ModelMapper modelMapper) {
+		this.employeeRepository = employeeRepository;
+		this.attendanceRepository = attendanceRepository;
+		this.modelMapper = modelMapper;
+	}
 
 	@Transactional
 	@Override

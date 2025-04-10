@@ -2,7 +2,6 @@ package com.EmployeeManagementSystem.EMS.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,8 +20,11 @@ import com.EmployeeManagementSystem.EMS.service.AttendenceService;
 @RequestMapping("/ems/employee")
 public class AttendanceController {
 
-	@Autowired
-	AttendenceService attendenceService;
+	private AttendenceService attendenceService;
+
+	public AttendanceController(AttendenceService attendenceService) {
+		this.attendenceService = attendenceService;
+	}
 
 	@PostMapping("/attendance/checkIn/{employeeCode}")
 	public ResponseEntity<?> checkin(@PathVariable long employeeCode)
@@ -31,17 +33,18 @@ public class AttendanceController {
 		return ResponseEntity.status(HttpStatus.OK).body("clocked in");
 
 	}
+
 	@PatchMapping("/attendance/checkOut/{employeeCode}")
-	public ResponseEntity<?> checkout(@PathVariable long employeeCode)throws NoDataFoundException{
+	public ResponseEntity<?> checkout(@PathVariable long employeeCode) throws NoDataFoundException {
 		attendenceService.completeAttendence(employeeCode);
 		return ResponseEntity.status(HttpStatus.OK).body("clocked out");
 	}
-	
+
 	@GetMapping("/attendance/getAttendanceList/{employeeCode}")
-	public ResponseEntity<List<AttendanceDTO>> getAtendancelist(@PathVariable long employeeCode)  throws NoDataFoundException{
+	public ResponseEntity<List<AttendanceDTO>> getAtendancelist(@PathVariable long employeeCode)
+			throws NoDataFoundException {
 		List<AttendanceDTO> attendenceList = attendenceService.AttendenceList(employeeCode);
-		return  new ResponseEntity<>(attendenceList,HttpStatus.OK);
-		
-		
+		return new ResponseEntity<>(attendenceList, HttpStatus.OK);
+
 	}
 }

@@ -3,7 +3,6 @@ package com.EmployeeManagementSystem.EMS.serviceimpl;
 import java.math.BigInteger;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.EmployeeManagementSystem.EMS.Entity.Department;
@@ -19,13 +18,19 @@ import com.EmployeeManagementSystem.EMS.service.EmployeeService;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
+
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
-	@Autowired
-	EmployeeRepository employeeRepository;
-	@Autowired
-	DepartmentRepository departmentRepository;
+	
+	private EmployeeRepository employeeRepository;
+	private DepartmentRepository departmentRepository;
+	
+	
+
+	public EmployeeServiceImpl(EmployeeRepository employeeRepository, DepartmentRepository departmentRepository) {
+		this.employeeRepository = employeeRepository;
+		this.departmentRepository = departmentRepository;
+	}
 
 	@Transactional
 	@Override
