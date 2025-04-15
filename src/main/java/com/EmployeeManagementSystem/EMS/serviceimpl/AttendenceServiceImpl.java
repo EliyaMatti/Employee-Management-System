@@ -1,6 +1,7 @@
 package com.EmployeeManagementSystem.EMS.serviceimpl;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -64,9 +65,9 @@ public class AttendenceServiceImpl implements AttendenceService {
 		LocalDateTime CheckOuttime = LocalDateTime.now();
 		attendance.setClockOut(CheckOuttime);
 		Duration duration = Duration.between(attendance.getClockIn(),CheckOuttime);
-//		double  totalHours= CheckOuttime. - attendance.getClockIn();
-		BigDecimal hours = BigDecimal.valueOf(duration.toHours());
-		attendance.setTotalHours(hours);
+		long seconds = duration.getSeconds();
+		BigDecimal totalHours = BigDecimal.valueOf(seconds).divide(BigDecimal.valueOf(3600), 2, RoundingMode.HALF_UP);
+		attendance.setTotalHours(totalHours);
 		attendanceRepository.save(attendance);
 	}
 
