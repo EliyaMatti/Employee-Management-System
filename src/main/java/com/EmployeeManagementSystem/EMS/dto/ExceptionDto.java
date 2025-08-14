@@ -1,4 +1,5 @@
 package com.EmployeeManagementSystem.EMS.dto;
+
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.http.HttpStatus;
@@ -6,11 +7,11 @@ import org.springframework.http.HttpStatus;
 @Getter
 @Setter
 public class ExceptionDto {
-    private HttpStatus errorCode;
-    private String message;
+  private HttpStatus errorCode;
+  private String message;
 
-    public ExceptionDto(HttpStatus errorCode, String message) {
-        this.errorCode = errorCode;
-        this.message = message;
-    }
+  public ExceptionDto(HttpStatus errorCode, String message) {
+    this.errorCode = errorCode;
+    this.message = message;
+  }
 }

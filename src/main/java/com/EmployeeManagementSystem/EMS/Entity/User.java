@@ -1,7 +1,5 @@
 package com.EmployeeManagementSystem.EMS.Entity;
 
-
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -14,17 +12,19 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "users")
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
-    @Id
-    private String username;
+  @Id private String username;
 
-    private String password;
+  private String password;
 
-    private String role;
+  private String role;
 
-    @ManyToOne
-    @JoinColumn(name = "employee_code")
-    private Employee employee;
+  @ManyToOne
+  @JoinColumn(name = "employee_code")
+  private Employee employee;
 }

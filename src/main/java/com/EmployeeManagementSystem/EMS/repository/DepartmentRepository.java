@@ -1,11 +1,8 @@
 package com.EmployeeManagementSystem.EMS.repository;
 
+import com.EmployeeManagementSystem.EMS.Entity.Department;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.EmployeeManagementSystem.EMS.Entity.Department;
-
 @Repository
-public interface DepartmentRepository extends JpaRepository<Department, Long> {
-
-}
+public interface DepartmentRepository extends JpaRepository<Department, Long> {}

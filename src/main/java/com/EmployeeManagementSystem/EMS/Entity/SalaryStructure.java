@@ -11,15 +11,15 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "salary_structure")
 public class SalaryStructure {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "employee_cpde")
-    private Employee employee;
+  @ManyToOne
+  @JoinColumn(name = "employee_cpde")
+  private Employee employee;
 
-    private Double baseSalary;
-    private Double bonus;
-    private Double taxRate;
+  private Double baseSalary;
+  private Double bonus;
+  private Double taxRate;
 }

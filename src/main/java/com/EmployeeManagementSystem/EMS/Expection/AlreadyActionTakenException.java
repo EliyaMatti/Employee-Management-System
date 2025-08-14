@@ -1,8 +1,8 @@
 package com.EmployeeManagementSystem.EMS.Expection;
 
-public class AlreadyActionTakenException  extends Exception{
+public class AlreadyActionTakenException extends Exception {
 
-	public AlreadyActionTakenException(String message) {
-		super(message);
-	}
+  public AlreadyActionTakenException(String message) {
+    super(message);
+  }
 }
