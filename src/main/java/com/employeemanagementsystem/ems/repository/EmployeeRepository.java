@@ -1,0 +1,17 @@
+package com.employeemanagementsystem.ems.repository;
+
+import com.employeemanagementsystem.ems.entity.Employee;
+import java.math.BigInteger;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface EmployeeRepository extends JpaRepository<Employee, Long> {
+
+  @Query(
+      value =
+          "select employee_code from employee_management.employees order by employee_code desc LIMIT 1;",
+      nativeQuery = true)
+  BigInteger checklastemployeeId();
+}

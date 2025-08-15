@@ -1,0 +1,15 @@
+package com.employeemanagementsystem.ems.dto;
+
+import java.time.LocalDate;
+import lombok.Data;
+
+@Data
+public class EmployeeDetailsDTO {
+  private String name;
+  private String email;
+  private String phone;
+  private String designation;
+  private Double salary;
+  private LocalDate joiningDate;
+  private DepartmentDTO department;
+}
